@@ -1,5 +1,6 @@
 package edu.miu.lelafoods.order.config;
 
+import edu.miu.lelafoods.order.utils.ApplicationProperties;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -12,28 +13,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-	@Value("${lelafoods-order.rabbitmq.queue}")
-	String queueName;
-
-	@Value("${lelafoods-order.rabbitmq.exchange}")
-	String exchange;
-
-	@Value("${lelafoods-order.rabbitmq.routingkey}")
-	private String routingkey;
+private ApplicationProperties applicationProperties;
 
 	@Bean
 	Queue queue() {
-		return new Queue(queueName, false);
+		return new Queue(applicationProperties.getQueueName(), false);
 	}
 
 	@Bean
 	DirectExchange exchange() {
-		return new DirectExchange(exchange);
+		return new DirectExchange(applicationProperties.getExchange());
 	}
 
 	@Bean
 	Binding binding(Queue queue, DirectExchange exchange) {
-		return BindingBuilder.bind(queue).to(exchange).with(routingkey);
+		return BindingBuilder.bind(queue).to(exchange).with(applicationProperties.getRoutingkey());
 	}
 
 	@Bean
