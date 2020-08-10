@@ -1,4 +1,4 @@
-package edu.miu.lelafoods.order;
+package edu.miu.lelafoods.order.config;
 
 import java.util.Properties;
 
@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @ComponentScan("edu.miu.lelafoods.order")
 @PropertySource(value = "classpath:application.properties")
-public class Persistence {
+public class PersistenceConfig {
 
     // Access application .properties file through Environment
     @Autowired
