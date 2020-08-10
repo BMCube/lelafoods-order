@@ -5,14 +5,13 @@ import edu.miu.lelafoods.order.service.RabbitMQSenderService;
 import edu.miu.lelafoods.order.utils.ApplicationProperties;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RabbitMQSenderServiceImpl implements RabbitMQSenderService {
     @Autowired
     private AmqpTemplate amqpTemplate;
-
+    @Autowired
     private ApplicationProperties applicationProperties;
 
     //For now not used
