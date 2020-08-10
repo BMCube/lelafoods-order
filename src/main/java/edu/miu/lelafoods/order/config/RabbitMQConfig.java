@@ -27,6 +27,7 @@ public class RabbitMQConfig {
     public RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
         return new RabbitAdmin(connectionFactory);
     }
+
     @Bean
     DirectExchange exchange() {
         return new DirectExchange(applicationProperties.getExchange());
