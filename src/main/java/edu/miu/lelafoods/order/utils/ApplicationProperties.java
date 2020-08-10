@@ -1,14 +1,16 @@
 package edu.miu.lelafoods.order.utils;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ApplicationProperties {
 
     @Value("${lelafoods-order.rabbitmq.queue}")
-    String queueName;
+    private String queueName;
 
     @Value("${lelafoods-order.rabbitmq.exchange}")
-    String exchange;
+    private String exchange;
 
     @Value("${lelafoods-order.rabbitmq.routingkey}")
     private String routingkey;
