@@ -4,4 +4,5 @@ import edu.miu.lelafoods.order.domain.Order;
 
 public interface RabbitMQSenderService {
 	public void sendOrder(Order order);
+	public void initializeRabbit();
 }

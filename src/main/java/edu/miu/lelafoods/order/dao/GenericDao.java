@@ -3,6 +3,7 @@ package edu.miu.lelafoods.order.dao;
 import java.util.List;
 
 public interface GenericDao<T> {
+
     void save(T t);
 
     void deleteById(Long id);

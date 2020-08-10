@@ -21,24 +21,24 @@ public class FoodController {
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public Food findFoodById(@PathVariable("id") Long id) {
         return foodService.findById(id);
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/name/{name}")
     public Food findFoodByName(@PathVariable("name") String name) {
         return foodService.findByFoodName(name);
     }
 
 
-    @PostMapping("")
+    @PostMapping()
     public void addFood(@RequestBody Food food) {
         foodService.save(food);
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteById(@PathVariable("id") Long id) {
         foodService.deleteById(id);
     }
