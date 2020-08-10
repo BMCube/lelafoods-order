@@ -33,7 +33,7 @@ public class OrderController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void processAddNewOrderForm(@RequestBody Order orderToBeAdded) {
-        //rabbitMQSenderService.initializeRabbit();
+        rabbitMQSenderService.initializeRabbit();
         rabbitMQSenderService.sendOrder(orderToBeAdded);
         orderService.addOrder(orderToBeAdded);
         return;
