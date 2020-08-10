@@ -14,9 +14,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDao orderDao;
 
-
     @Override
-    public List<Order> getAllOrder() {
+    public List<Order> getAllOrders() {
         return orderDao.findAll();
     }
 
@@ -27,15 +26,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void addOrder(Order order) {
-           orderDao.save(order);
-
+        orderDao.save(order);
     }
 
     @Override
     public void editOrder(Order editedOrder) {
-         orderDao.update(editedOrder);
-
-
+        orderDao.update(editedOrder);
     }
 
     @Override
