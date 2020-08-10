@@ -5,7 +5,7 @@ import edu.miu.lelafoods.order.domain.Food;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
-
+@SuppressWarnings("unchecked")
 @Repository
 public class FoodDaoImpl extends GenericDaoImpl<Food> implements FoodDao {
     public FoodDaoImpl(){
