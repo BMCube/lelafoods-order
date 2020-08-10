@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 
 @Entity
-@Table(name = "order")
+@Table(name = "foodorder")
 public class Order {
 
     @Id
