@@ -3,8 +3,13 @@ package edu.miu.lelafoods.order.controller;
 import edu.miu.lelafoods.order.service.FoodService;
 import edu.miu.lelafoods.order.domain.Food;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -32,10 +37,24 @@ public class FoodController {
     }
 
 
+    /*@PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Food> addFood(@RequestBody @Valid Food food, BindingResult result, Principal principal) {
+        if (result.hasErrors()) {
+            return null;
+
+        }
+        return new ResponseEntity<Food>(this.foodService.save(food), HttpStatus.OK);
+
+    }*/
+
     @PostMapping()
+
+    @ResponseStatus(HttpStatus.CREATED)
     public void addFood(@RequestBody Food food) {
         foodService.save(food);
     }
+
 
 
     @DeleteMapping("/delete/{id}")
