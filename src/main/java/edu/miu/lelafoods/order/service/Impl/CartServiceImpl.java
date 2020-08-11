@@ -40,8 +40,7 @@ public class CartServiceImpl implements CartService {
         //cart.setSubtotal(cart.calculateTotal());
         cartDao.update(cart);
         rabbitMQSenderService.initializeRabbit();
-        rabbitMQSenderService.sendOrder(cart);
-
+        rabbitMQSenderService.sendCart(cart);
     }
 
     @Override
@@ -57,8 +56,6 @@ public class CartServiceImpl implements CartService {
     @Override
     public void deleteCart(long id) {
         cartDao.deleteById(id);
-
-
     }
 
     @Override

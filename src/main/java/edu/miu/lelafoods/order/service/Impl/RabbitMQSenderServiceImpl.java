@@ -32,8 +32,8 @@ public class RabbitMQSenderServiceImpl implements RabbitMQSenderService {
 
 
     @Override
-    public void sendOrder(Cart cart) {
+    public void sendCart(Cart cart) {
         amqpTemplate.convertAndSend(applicationProperties.getExchange(), applicationProperties.getRoutingkey(), cart);
-        System.out.println("Send order = " + cart);
+        System.out.println("Sent card = " + cart.toString());
     }
 }
