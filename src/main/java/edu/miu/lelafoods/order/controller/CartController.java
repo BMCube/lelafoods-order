@@ -3,10 +3,14 @@ package edu.miu.lelafoods.order.controller;
 import edu.miu.lelafoods.order.domain.Cart;
 import edu.miu.lelafoods.order.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -23,11 +27,16 @@ public class CartController {
         List<Cart> foodsList = cartService.findall();
         return foodsList;
     }
-    @PostMapping()
+    /*@PostMapping()
     public void CreateCart(@RequestBody Cart cart) {
         cartService.save(cart);
+    }*/
+    @PostMapping()
+    public @ResponseBody ResponseEntity<Void> CreateCart(@RequestBody Cart cart, HttpServletRequest request) throws URISyntaxException {
+         cartService.save(cart);
+        HttpHeaders header = new HttpHeaders();
+        return new ResponseEntity<Void>(header, HttpStatus.CREATED);
     }
-
     @RequestMapping(value = "/addTocart/{idCart}", method = RequestMethod.PUT)
     public @ResponseBody
     ResponseEntity<Void> addOrderToCart(@PathVariable("idCart") Long idCart, @RequestParam("idFood") Long idFood,
@@ -35,4 +44,12 @@ public class CartController {
         cartService.addToCart(idCart, idFood, quantity);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
+    @GetMapping("{id}")
+    public Cart findByCarId(@PathVariable("id") Long id) {
+        return  cartService.findById(id);
+
+
+
+    }
+
 }

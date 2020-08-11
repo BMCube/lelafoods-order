@@ -2,6 +2,7 @@ package edu.miu.lelafoods.order.domain;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -12,18 +13,26 @@ public class Cart {
     @Column(name = "cart_id",nullable = false)
     private Long id;
 
+     public Cart(){
+
+     }
+    public Cart(Long id, BigDecimal subtotal) {
+        this.id =id;
+
+    }
 
     @Valid
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable ( name="cart_order", joinColumns={@JoinColumn(name="cart_id")},
             inverseJoinColumns={ @JoinColumn(name="order_id", unique=true)} )
     List<Order> order;
-    @Column(name = "amount")
-    private double amount;
+
+
 
     public Long getId() {
         return id;
     }
+
 
     public void setId(Long id) {
         this.id = id;
@@ -36,21 +45,15 @@ public class Cart {
     public void setOrder(List<Order> order) {
         this.order = order;
     }
-    private double subtotal;
-    public double getAmount() {
-        return amount;
-    }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
 
-    public double getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(double subtotal) {
-        this.subtotal = subtotal;
+    public BigDecimal calculateTotal(){
+        BigDecimal total = BigDecimal.ZERO;
+        for (Order order : this.getOrder()) {
+            total.add(BigDecimal.valueOf(order.getFood().getPrice()*(order.getOrderQuantity())));
+            System.out.println( "order " + order.getId());
+        }
+        return total;
     }
 
 
