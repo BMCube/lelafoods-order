@@ -19,9 +19,6 @@ public class RabbitMQSenderServiceImpl implements RabbitMQSenderService {
     @Autowired
     private RabbitAdmin rabbitAdmin;
 
-    //For now not used
-    String amqpTopic = "lelafoods_order_topic";
-    //I don't think we need this but for now let's keep it
     @Override
     public void initializeRabbit(){
         Queue queue = new Queue(applicationProperties.getQueueName() , true, false, false);

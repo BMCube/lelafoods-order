@@ -66,7 +66,7 @@ public class Order {
         this.orderQuantity = orderAmount;
     }
 
-    }
+
 
     public Long getId() {
         return id;
@@ -89,7 +89,9 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", food=" + food +
-                ", orderAmount=" + orderAmount +
+                ", orderQuantity=" + orderQuantity +
+                ", orderedDate=" + orderedDate +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
