@@ -10,7 +10,7 @@ import java.util.List;
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "cart_id",nullable = false)
+    @Column(name = "cart_id", nullable = false)
     private Long id;
 
      public Cart(){
@@ -23,10 +23,13 @@ public class Cart {
 
     @Valid
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable ( name="cart_order", joinColumns={@JoinColumn(name="cart_id")},
-            inverseJoinColumns={ @JoinColumn(name="order_id", unique=true)} )
+    @JoinTable(name = "cart_order", joinColumns = {@JoinColumn(name = "cart_id")},
+            inverseJoinColumns = {@JoinColumn(name = "order_id", unique = true)})
     List<Order> order;
 
+
+
+    private double subtotal;
 
 
     public Long getId() {
@@ -55,12 +58,6 @@ public class Cart {
         }
         return total;
     }
-
-
-
-
-
-
 
 
 }
