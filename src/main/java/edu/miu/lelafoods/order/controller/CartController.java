@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/orders/carts")
+@RequestMapping(CartController.BASE_URL)
 public class CartController {
+
+    public static final String BASE_URL = "/orders/carts";
 
     @Autowired
     CartService cartService;
