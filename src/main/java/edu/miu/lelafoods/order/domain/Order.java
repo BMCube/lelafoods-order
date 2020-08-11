@@ -2,6 +2,7 @@ package edu.miu.lelafoods.order.domain;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "foodorder")
@@ -16,6 +17,27 @@ public class Order {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "foodId")
     Food food;
+
+    @Column(name = "order_quantity")
+    private Integer orderAmount ;
+    public Integer getOrderAmount() {
+        return orderAmount;
+    }
+    public Order(){}
+
+    public Order(Integer orderAmount,Food food) {
+        this.orderAmount = orderAmount;
+        this.food=food;
+    }
+
+//
+
+
+    public void setOrderAmount(Integer orderAmount) {
+        this.orderAmount = orderAmount;
+    }
+
+
 
     public Long getId() {
         return id;
