@@ -1,9 +1,8 @@
 package edu.miu.lelafoods.order.service.Impl;
 
-import edu.miu.lelafoods.order.domain.Order;
+import edu.miu.lelafoods.order.domain.Cart;
 import edu.miu.lelafoods.order.service.RabbitMQSenderService;
 import edu.miu.lelafoods.order.utils.ApplicationProperties;
-import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.Queue;
@@ -20,9 +19,6 @@ public class RabbitMQSenderServiceImpl implements RabbitMQSenderService {
     @Autowired
     private RabbitAdmin rabbitAdmin;
 
-    //For now not used
-    String amqpTopic = "lelafoods_order_topic";
-    //I don't think we need this but for now let's keep it
     @Override
     public void initializeRabbit(){
         Queue queue = new Queue(applicationProperties.getQueueName() , true, false, false);
@@ -33,8 +29,8 @@ public class RabbitMQSenderServiceImpl implements RabbitMQSenderService {
 
 
     @Override
-    public void sendOrder(Order order) {
-        amqpTemplate.convertAndSend(applicationProperties.getExchange(), applicationProperties.getRoutingkey(), order);
-        System.out.println("Send order = " + order);
+    public void sendCart(Cart cart) {
+        amqpTemplate.convertAndSend(applicationProperties.getExchange(), applicationProperties.getRoutingkey(), cart);
+        System.out.println("Sent card = " + cart.toString());
     }
 }

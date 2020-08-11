@@ -13,9 +13,9 @@ public class Cart {
     @Column(name = "cart_id",nullable = false)
     private Long id;
 
-     public Cart(){
+    public Cart(){
 
-     }
+    }
     public Cart(Long id, BigDecimal subtotal) {
         this.id =id;
 
@@ -25,7 +25,7 @@ public class Cart {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable ( name="cart_order", joinColumns={@JoinColumn(name="cart_id")},
             inverseJoinColumns={ @JoinColumn(name="order_id", unique=true)} )
-    List<Order> order;
+    List<Order> orderList;
 
 
 
@@ -39,11 +39,11 @@ public class Cart {
     }
 
     public List<Order> getOrder() {
-        return order;
+        return orderList;
     }
 
-    public void setOrder(List<Order> order) {
-        this.order = order;
+    public void setOrder(List<Order> orderList) {
+        this.orderList = orderList;
     }
 
 
@@ -56,11 +56,11 @@ public class Cart {
         return total;
     }
 
-
-
-
-
-
-
-
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", orderList=" + orderList +
+                '}';
+    }
 }

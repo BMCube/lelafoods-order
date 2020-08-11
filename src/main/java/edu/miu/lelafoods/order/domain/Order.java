@@ -83,4 +83,15 @@ public class Order {
     public void setFood(Food food) {
         this.food = food;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", food=" + food +
+                ", orderQuantity=" + orderQuantity +
+                ", orderedDate=" + orderedDate +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

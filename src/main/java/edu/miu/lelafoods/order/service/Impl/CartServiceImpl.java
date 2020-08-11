@@ -1,4 +1,4 @@
-package edu.miu.lelafoods.order.service.impl;
+package edu.miu.lelafoods.order.service.Impl;
 
 import edu.miu.lelafoods.order.dao.CartDao;
 import edu.miu.lelafoods.order.dao.FoodDao;
@@ -8,6 +8,7 @@ import edu.miu.lelafoods.order.domain.Food;
 import edu.miu.lelafoods.order.domain.Order;
 import edu.miu.lelafoods.order.domain.OrderStatus;
 import edu.miu.lelafoods.order.service.CartService;
+import edu.miu.lelafoods.order.service.RabbitMQSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,8 @@ public class CartServiceImpl implements CartService {
     OrderDao orderDao;
     @Autowired
     FoodDao foodDao;
+    @Autowired
+    RabbitMQSenderService rabbitMQSenderService;
     @Override
     public void save(Cart cart) {
         cartDao.save(cart);
@@ -36,7 +39,8 @@ public class CartServiceImpl implements CartService {
         cart.getOrder().add(new Order(quantity, food,new Date(), OrderStatus.NEW.toString()));
         //cart.setSubtotal(cart.calculateTotal());
         cartDao.update(cart);
-
+        rabbitMQSenderService.initializeRabbit();
+        rabbitMQSenderService.sendCart(cart);
     }
 
     @Override
@@ -52,8 +56,6 @@ public class CartServiceImpl implements CartService {
     @Override
     public void deleteCart(long id) {
         cartDao.deleteById(id);
-
-
     }
 
     @Override

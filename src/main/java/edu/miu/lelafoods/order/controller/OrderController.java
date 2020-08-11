@@ -32,8 +32,6 @@ public class OrderController {
 
     @PostMapping()
     public void processAddNewOrderForm(@RequestBody Order orderToBeAdded) {
-        rabbitMQSenderService.initializeRabbit();
-        rabbitMQSenderService.sendOrder(orderToBeAdded);
         orderService.addOrder(orderToBeAdded);
         return;
     }
