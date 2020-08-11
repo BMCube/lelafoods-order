@@ -12,5 +12,7 @@ public interface CartService {
     Long ordered(Long idCart);
     List<Cart> findall();
     void deleteCart(long id);
+    Cart findById(long id);
+
 
 }

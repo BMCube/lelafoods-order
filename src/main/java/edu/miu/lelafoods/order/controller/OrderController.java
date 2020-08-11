@@ -20,18 +20,17 @@ public class OrderController {
     @Autowired
     RabbitMQSenderService rabbitMQSenderService;
 
-    @RequestMapping("")
+    @GetMapping("")
     public List<Order> list() {
         return orderService.getAllOrders();
     }
 
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
     public Order getOrderById(@PathVariable("id") Long orderId) {
         return orderService.getOrderById(orderId);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
-
+    @PostMapping()
     public void processAddNewOrderForm(@RequestBody Order orderToBeAdded) {
         rabbitMQSenderService.initializeRabbit();
         rabbitMQSenderService.sendOrder(orderToBeAdded);

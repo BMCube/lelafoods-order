@@ -6,11 +6,13 @@ import edu.miu.lelafoods.order.dao.OrderDao;
 import edu.miu.lelafoods.order.domain.Cart;
 import edu.miu.lelafoods.order.domain.Food;
 import edu.miu.lelafoods.order.domain.Order;
+import edu.miu.lelafoods.order.domain.OrderStatus;
 import edu.miu.lelafoods.order.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -31,8 +33,10 @@ public class CartServiceImpl implements CartService {
     public void addToCart(Long idCart, Long idFood, Integer quantity) {
         Cart cart = cartDao.findOne(idCart);
         Food food = foodDao.findOne(idFood);
-        cart.getOrder().add(new Order(quantity, food));
+        cart.getOrder().add(new Order(quantity, food,new Date(), OrderStatus.NEW.toString()));
+        //cart.setSubtotal(cart.calculateTotal());
         cartDao.update(cart);
+
     }
 
     @Override
@@ -50,6 +54,11 @@ public class CartServiceImpl implements CartService {
         cartDao.deleteById(id);
 
 
+    }
+
+    @Override
+    public Cart findById(long id) {
+        return cartDao.findOne(id);
     }
 
 
