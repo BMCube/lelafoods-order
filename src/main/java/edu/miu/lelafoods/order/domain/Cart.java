@@ -55,5 +55,13 @@ public class Cart {
         this.subtotal = subtotal;
     }
 
-
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", order=" + order +
+                ", amount=" + amount +
+                ", subtotal=" + subtotal +
+                '}';
+    }
 }

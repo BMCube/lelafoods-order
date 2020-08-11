@@ -37,8 +37,7 @@ public class CartServiceImpl implements CartService {
         cart.getOrder().add(new Order(quantity, food));
         cartDao.update(cart);
         rabbitMQSenderService.initializeRabbit();
-        rabbitMQSenderService.sendOrder(cart);
-
+        rabbitMQSenderService.sendCart(cart);
     }
 
     @Override
@@ -54,8 +53,6 @@ public class CartServiceImpl implements CartService {
     @Override
     public void deleteCart(long id) {
         cartDao.deleteById(id);
-
-
     }
 
 

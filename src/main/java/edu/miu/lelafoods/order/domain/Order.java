@@ -29,15 +29,9 @@ public class Order {
         this.orderAmount = orderAmount;
         this.food=food;
     }
-
-//
-
-
     public void setOrderAmount(Integer orderAmount) {
         this.orderAmount = orderAmount;
     }
-
-
 
     public Long getId() {
         return id;
@@ -53,5 +47,14 @@ public class Order {
 
     public void setFood(Food food) {
         this.food = food;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", food=" + food +
+                ", orderAmount=" + orderAmount +
+                '}';
     }
 }
