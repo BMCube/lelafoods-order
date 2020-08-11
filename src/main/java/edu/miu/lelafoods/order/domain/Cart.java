@@ -27,29 +27,25 @@ public class Cart {
             inverseJoinColumns={ @JoinColumn(name="order_id", unique=true)} )
     List<Order> orderList;
 
-
-
     public Long getId() {
         return id;
     }
-
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public List<Order> getOrder() {
+    public List<Order> getOrderList() {
         return orderList;
     }
 
-    public void setOrder(List<Order> orderList) {
+    public void setOrderList(List<Order> orderList) {
         this.orderList = orderList;
     }
 
-
     public BigDecimal calculateTotal(){
         BigDecimal total = BigDecimal.ZERO;
-        for (Order order : this.getOrder()) {
+        for (Order order : this.getOrderList()) {
             total.add(BigDecimal.valueOf(order.getFood().getPrice()*(order.getOrderQuantity())));
             System.out.println( "order " + order.getId());
         }

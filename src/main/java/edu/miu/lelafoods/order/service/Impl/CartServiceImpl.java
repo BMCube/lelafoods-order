@@ -36,7 +36,7 @@ public class CartServiceImpl implements CartService {
     public void addToCart(Long idCart, Long idFood, Integer quantity) {
         Cart cart = cartDao.findOne(idCart);
         Food food = foodDao.findOne(idFood);
-        cart.getOrder().add(new Order(quantity, food,new Date(), OrderStatus.NEW.toString()));
+        cart.getOrderList().add(new Order(quantity, food,new Date(), OrderStatus.NEW.toString()));
         //cart.setSubtotal(cart.calculateTotal());
         cartDao.update(cart);
         rabbitMQSenderService.initializeRabbit();
