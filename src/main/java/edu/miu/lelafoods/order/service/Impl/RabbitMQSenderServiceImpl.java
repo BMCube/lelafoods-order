@@ -1,9 +1,8 @@
 package edu.miu.lelafoods.order.service.Impl;
 
-import edu.miu.lelafoods.order.domain.Order;
+import edu.miu.lelafoods.order.domain.Cart;
 import edu.miu.lelafoods.order.service.RabbitMQSenderService;
 import edu.miu.lelafoods.order.utils.ApplicationProperties;
-import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.Queue;
@@ -33,8 +32,8 @@ public class RabbitMQSenderServiceImpl implements RabbitMQSenderService {
 
 
     @Override
-    public void sendOrder(Order order) {
-        amqpTemplate.convertAndSend(applicationProperties.getExchange(), applicationProperties.getRoutingkey(), order);
-        System.out.println("Send order = " + order);
+    public void sendOrder(Cart cart) {
+        amqpTemplate.convertAndSend(applicationProperties.getExchange(), applicationProperties.getRoutingkey(), cart);
+        System.out.println("Send order = " + cart);
     }
 }

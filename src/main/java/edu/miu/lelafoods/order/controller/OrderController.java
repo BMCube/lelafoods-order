@@ -17,9 +17,6 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @Autowired
-    RabbitMQSenderService rabbitMQSenderService;
-
     @RequestMapping("")
     public List<Order> list() {
         return orderService.getAllOrders();
@@ -33,8 +30,6 @@ public class OrderController {
     @RequestMapping(value = "", method = RequestMethod.POST)
 
     public void processAddNewOrderForm(@RequestBody Order orderToBeAdded) {
-        rabbitMQSenderService.initializeRabbit();
-        rabbitMQSenderService.sendOrder(orderToBeAdded);
         orderService.addOrder(orderToBeAdded);
         return;
     }
