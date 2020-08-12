@@ -9,15 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
 @RequestMapping(CartController.BASE_URL)
 public class CartController {
 
-    public static final String BASE_URL = "/orders/carts";
+    public static final String BASE_URL = "/carts";
 
     @Autowired
     CartService cartService;
@@ -27,29 +25,27 @@ public class CartController {
         List<Cart> foodsList = cartService.findall();
         return foodsList;
     }
-    /*@PostMapping()
-    public void CreateCart(@RequestBody Cart cart) {
-        cartService.save(cart);
-    }*/
+
     @PostMapping()
-    public @ResponseBody ResponseEntity<Void> CreateCart(@RequestBody Cart cart, HttpServletRequest request) throws URISyntaxException {
-         cartService.save(cart);
+    public @ResponseBody
+    ResponseEntity<Void> CreateCart(@RequestBody Cart cart, HttpServletRequest request) {
+
+        cartService.save(cart);
         HttpHeaders header = new HttpHeaders();
         return new ResponseEntity<Void>(header, HttpStatus.CREATED);
     }
-    @RequestMapping(value = "/addTocart/{idCart}", method = RequestMethod.PUT)
+
+    @PutMapping("/{idCart}/order")
     public @ResponseBody
-    ResponseEntity<Void> addOrderToCart(@PathVariable("idCart") Long idCart, @RequestParam("idFood") Long idFood,
-                                    @RequestParam("quantity") Integer quantity) {
+    ResponseEntity<Void> addOrderToCart(@PathVariable("idCart") Long idCart, @RequestParam(value = "idFood") Long idFood,
+                                        @RequestParam("quantity") Integer quantity) {
         cartService.addToCart(idCart, idFood, quantity);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
+
     @GetMapping("{id}")
     public Cart findByCarId(@PathVariable("id") Long id) {
-        return  cartService.findById(id);
-
-
-
+        return cartService.findById(id);
     }
 
 }
