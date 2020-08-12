@@ -8,6 +8,7 @@ import edu.miu.lelafoods.order.dto.CartDto;
 import edu.miu.lelafoods.order.domain.Restaurant;
 import edu.miu.lelafoods.order.service.CartService;
 import edu.miu.lelafoods.order.service.RabbitMQSenderService;
+import edu.miu.lelafoods.order.utils.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,16 +28,18 @@ public class CartServiceImpl implements CartService {
     FoodDao foodDao;
     @Autowired
     RabbitMQSenderService rabbitMQSenderService;
+
+    Utility utility = new Utility();
+
     @Override
     public void save(Cart cart) {
         RestTemplate restTemplate = new RestTemplate();
-        Customer customer = restTemplate.getForObject("http://localhost:8080/customers/"+cart.getCustomerId(), Customer.class);
-        Restaurant restaurant = restTemplate.getForObject("http://localhost:8083/restaurants/"+cart.getRestaurantId(), Restaurant.class);
-        if(customer != null && restaurant != null){
+        Customer customer = restTemplate.getForObject("http://localhost:8080/customers/" + cart.getCustomerId(), Customer.class);
+        Restaurant restaurant = restTemplate.getForObject("http://localhost:8083/restaurants/" + cart.getRestaurantId(), Restaurant.class);
+        if (customer != null && restaurant != null) {
             cart.setOrderDate(new Date());
             cart.setStatus(OrderStatus.NEW.toString());
             cartDao.save(cart);
-            rabbitMQSenderService.initializeRabbit();
             CartDto cartDto = new CartDto();
             cartDto.setCustomer(customer);
             cartDto.setRestaurant(restaurant);
@@ -45,6 +48,7 @@ public class CartServiceImpl implements CartService {
             cartDto.setOrderDate(cart.getOrderDate());
             cartDto.setStatus(cart.getStatus());
             rabbitMQSenderService.sendCart(cartDto);
+            utility.cartToJson(cartDto);
         }
     }
 
@@ -53,10 +57,7 @@ public class CartServiceImpl implements CartService {
         Cart cart = cartDao.findOne(idCart);
         Food food = foodDao.findOne(idFood);
         cart.getOrder().add(new Order(quantity, food));
-        //cart.setSubtotal(cart.calculateTotal());
         cartDao.update(cart);
-//        rabbitMQSenderService.initializeRabbit();
-//        rabbitMQSenderService.sendCart(cart);
     }
 
     @Override
@@ -79,12 +80,11 @@ public class CartServiceImpl implements CartService {
         return cartDao.findOne(id);
     }
 
-
          /*Order Order = this.findItemInCart(productCode);
 
         if (itemInfo != null) {
             this.cartItem.remove(itemInfo);*/
 
-        }
+}
 
 
