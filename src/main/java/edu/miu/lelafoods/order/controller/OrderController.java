@@ -11,14 +11,13 @@ import edu.miu.lelafoods.order.domain.Order;
 import edu.miu.lelafoods.order.service.OrderService;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping(OrderController.BASE_URL)
 public class OrderController {
+
+    public static final String BASE_URL = "/orders";
 
     @Autowired
     private OrderService orderService;
-
-    @Autowired
-    RabbitMQSenderService rabbitMQSenderService;
 
     @GetMapping("")
     public List<Order> list() {
