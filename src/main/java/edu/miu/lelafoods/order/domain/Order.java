@@ -15,58 +15,29 @@ public class Order {
     private Long id;
 
     @Valid
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "foodId")
     Food food;
 
-    public Date getOrderedDate() {
-        return orderedDate;
-    }
-
-    public void setOrderedDate(Date ordered) {
-        this.orderedDate = ordered;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    @Min(value =1 , message="Min.size.validation")
+    @Min(value = 1, message = "Min.size.validation")
     @Column(name = "order_quantity")
     private Integer orderQuantity;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "ordered", length = 19)
-    private Date orderedDate;
-    @Column(name = "status",  length = 20)
-    private String status;
+
     public Integer getOrderQuantity() {
         return orderQuantity;
     }
-    public Order(){}
+
+    public Order() {
+    }
 
     public Order(Integer orderQuantity, Food food) {
         this.orderQuantity = orderQuantity;
-        this.food=food;
+        this.food = food;
     }
-
-    public Order(Integer orderQuantity, Food food,Date date,String status) {
-        this.orderQuantity = orderQuantity;
-        this.food=food;
-        orderedDate= date;
-        this.status =status;
-    }
-
-
 
     public void setOrderQuantity(Integer orderAmount) {
         this.orderQuantity = orderAmount;
     }
-
-
 
     public Long getId() {
         return id;
@@ -90,8 +61,6 @@ public class Order {
                 "id=" + id +
                 ", food=" + food +
                 ", orderQuantity=" + orderQuantity +
-                ", orderedDate=" + orderedDate +
-                ", status='" + status + '\'' +
                 '}';
     }
 }
