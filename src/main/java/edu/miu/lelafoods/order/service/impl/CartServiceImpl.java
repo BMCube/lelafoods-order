@@ -1,17 +1,17 @@
-package edu.miu.lelafoods.order.service.Impl;
+package edu.miu.lelafoods.order.service.impl;
 
 import edu.miu.lelafoods.order.dao.CartDao;
 import edu.miu.lelafoods.order.dao.FoodDao;
 import edu.miu.lelafoods.order.dao.OrderDao;
-import edu.miu.lelafoods.order.domain.Cart;
-import edu.miu.lelafoods.order.domain.Food;
-import edu.miu.lelafoods.order.domain.Order;
-import edu.miu.lelafoods.order.domain.OrderStatus;
+import edu.miu.lelafoods.order.domain.*;
+import edu.miu.lelafoods.order.dto.CartDto;
+import edu.miu.lelafoods.order.domain.Restaurant;
 import edu.miu.lelafoods.order.service.CartService;
 import edu.miu.lelafoods.order.service.RabbitMQSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.List;
@@ -29,18 +29,34 @@ public class CartServiceImpl implements CartService {
     RabbitMQSenderService rabbitMQSenderService;
     @Override
     public void save(Cart cart) {
-        cartDao.save(cart);
+        RestTemplate restTemplate = new RestTemplate();
+        Customer customer = restTemplate.getForObject("http://localhost:8080/customers/"+cart.getCustomerId(), Customer.class);
+        Restaurant restaurant = restTemplate.getForObject("http://localhost:8083/restaurants/"+cart.getRestaurantId(), Restaurant.class);
+        if(customer != null && restaurant != null){
+            cart.setOrderDate(new Date());
+            cart.setStatus(OrderStatus.NEW.toString());
+            cartDao.save(cart);
+            rabbitMQSenderService.initializeRabbit();
+            CartDto cartDto = new CartDto();
+            cartDto.setCustomer(customer);
+            cartDto.setRestaurant(restaurant);
+            cartDto.setOrder(cart.getOrder());
+            cartDto.setId(cart.getId());
+            cartDto.setOrderDate(cart.getOrderDate());
+            cartDto.setStatus(cart.getStatus());
+            rabbitMQSenderService.sendCart(cartDto);
+        }
     }
 
     @Override
     public void addToCart(Long idCart, Long idFood, Integer quantity) {
         Cart cart = cartDao.findOne(idCart);
         Food food = foodDao.findOne(idFood);
-        cart.getOrder().add(new Order(quantity, food,new Date(), OrderStatus.NEW.toString()));
+        cart.getOrder().add(new Order(quantity, food));
         //cart.setSubtotal(cart.calculateTotal());
         cartDao.update(cart);
-        rabbitMQSenderService.initializeRabbit();
-        rabbitMQSenderService.sendCart(cart);
+//        rabbitMQSenderService.initializeRabbit();
+//        rabbitMQSenderService.sendCart(cart);
     }
 
     @Override

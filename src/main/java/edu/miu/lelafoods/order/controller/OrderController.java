@@ -19,9 +19,6 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @Autowired
-    RabbitMQSenderService rabbitMQSenderService;
-
     @GetMapping("")
     public List<Order> list() {
         return orderService.getAllOrders();

@@ -17,9 +17,7 @@ public class FoodServiceImpl  implements FoodService {
 
     public void save(Food food) {
         foodDao.save(food);
-
     }
-
 
     public List<Food> findall() {
         return foodDao.findAll();
@@ -28,14 +26,12 @@ public class FoodServiceImpl  implements FoodService {
 
     public void deleteById(Long id) {
         foodDao.deleteById(id);
-
     }
 
     @Override
     public Food findByFoodName(String name) {
         return foodDao.findByFoodName(name);
     }
-
 
     public Food findById(Long id) {
         return foodDao.findOne(id);

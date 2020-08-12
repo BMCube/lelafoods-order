@@ -20,6 +20,8 @@ public class Food {
     @Min(value = 1, message = "{Min.size.validation}")
     private Double price;
 
+    private String description;
+
     public Long getId() {
         return id;
     }
@@ -42,6 +44,14 @@ public class Food {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
