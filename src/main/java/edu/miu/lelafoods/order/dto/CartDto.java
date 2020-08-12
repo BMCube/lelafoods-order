@@ -21,7 +21,7 @@ public class CartDto {
 
     private String status;
 
-    List<Order> orderList;
+    List<Order> order;
 
     public CartDto() {
 
@@ -57,13 +57,12 @@ public class CartDto {
     }
 
     public List<Order> getOrder() {
-        return orderList;
+        return order;
     }
 
-    public void setOrder(List<Order> orderList) {
-        this.orderList = orderList;
+    public void setOrder(List<Order> order) {
+        this.order = order;
     }
-
 
     public Date getOrderDate() {
         return orderDate;
@@ -85,7 +84,7 @@ public class CartDto {
     public String toString() {
         return "Cart{" +
                 "id=" + id +
-                ", orderList=" + orderList +
+                ", orderList=" + order +
                 '}';
     }
 }

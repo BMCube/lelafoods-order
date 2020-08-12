@@ -30,7 +30,7 @@ public class Cart {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "cart_order", joinColumns = {@JoinColumn(name = "cart_id")},
             inverseJoinColumns = {@JoinColumn(name = "order_id", unique = true)})
-    List<Order> orderList;
+    List<Order> order;
 
     public Cart() {
 
@@ -67,11 +67,11 @@ public class Cart {
     }
 
     public List<Order> getOrder() {
-        return orderList;
+        return order;
     }
 
-    public void setOrderList(List<Order> orderList) {
-        this.orderList = orderList;
+    public void setOrder(List<Order> order) {
+        this.order = order;
     }
 
     public Date getOrderDate() {
@@ -105,7 +105,7 @@ public class Cart {
                 "id=" + id +
                 ", orderDate=" + orderDate +
                 ", status='" + status + '\'' +
-                ", orderList=" + orderList +
+                ", orderList=" + order +
                 '}';
     }
 }
