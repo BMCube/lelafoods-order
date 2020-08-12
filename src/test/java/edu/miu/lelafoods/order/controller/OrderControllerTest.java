@@ -64,7 +64,8 @@ public class OrderControllerTest {
                 .andExpect(jsonPath("$.food.id", is(1)))
                 .andExpect(jsonPath("$.food.name", is("Doro")))
                 .andExpect(jsonPath("$.food.price", is(25.5)))
-                .andExpect(jsonPath("$.orderAmount", is(1)))
                 .andReturn();
     }
+    
+
 }
