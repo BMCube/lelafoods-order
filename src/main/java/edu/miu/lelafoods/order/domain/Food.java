@@ -22,6 +22,15 @@ public class Food {
 
     private String description;
 
+    public Food() {
+    }
+
+    public Food(@NotBlank(message = "{String.empty}") String name, @Min(value = 1, message = "{Min.size.validation}") Double price, String description) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+    }
+
     public Long getId() {
         return id;
     }

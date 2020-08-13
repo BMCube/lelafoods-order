@@ -27,7 +27,7 @@ public class Cart {
     private String status;
 
     @Valid
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "cart_order", joinColumns = {@JoinColumn(name = "cart_id")},
             inverseJoinColumns = {@JoinColumn(name = "order_id", unique = true)})
     List<Order> orderList;
@@ -36,10 +36,19 @@ public class Cart {
 
     }
 
-    public Cart(Long id, BigDecimal subtotal, Date date, String status) {
-        this.id = id;
-        orderDate = date;
+    public Cart(Long customerId, Long restaurantId, Date orderDate, String status) {
+        this.customerId = customerId;
+        this.restaurantId = restaurantId;
+        this.orderDate = orderDate;
         this.status = status;
+    }
+
+    public Cart(Long customerId, Long restaurantId, Date orderDate, String status, @Valid List<Order> orderList) {
+        this.customerId = customerId;
+        this.restaurantId = restaurantId;
+        this.orderDate = orderDate;
+        this.status = status;
+        this.orderList = orderList;
     }
 
     public Long getId() {
