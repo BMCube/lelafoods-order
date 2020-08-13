@@ -41,7 +41,6 @@ public class OrderApplication implements CommandLineRunner {
         Food food = new Food("Firfir",Double.valueOf(20),"A shredded flat bread, spiced clarified butter, and the hot spice berbere");
         foodService.save(food);
         Order order = new Order(3,food);
-        orderService.addOrder(order);
         Cart cart = new Cart(2L,1L,new Date(), OrderStatus.NEW.toString(),new ArrayList<>(Arrays.asList(order)));
         cartService.save(cart);
 
