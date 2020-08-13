@@ -15,7 +15,7 @@ public class Order {
     private Long id;
 
     @Valid
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "foodId")
     Food food;
 
