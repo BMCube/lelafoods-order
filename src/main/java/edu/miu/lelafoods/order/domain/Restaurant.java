@@ -8,10 +8,6 @@ public class Restaurant {
 
     private String name;
 
-    List<Address> addresses;
-
-    List<Food> foods;
-
     public Restaurant() {
     }
 
@@ -31,19 +27,5 @@ public class Restaurant {
         this.name = name;
     }
 
-    public List<Address> getAddresses() {
-        return addresses;
-    }
 
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
-    }
-
-    public List<Food> getFoods() {
-        return foods;
-    }
-
-    public void setFoods(List<Food> foods) {
-        this.foods = foods;
-    }
 }

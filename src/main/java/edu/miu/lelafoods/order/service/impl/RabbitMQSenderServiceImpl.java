@@ -16,21 +16,10 @@ public class RabbitMQSenderServiceImpl implements RabbitMQSenderService {
     private AmqpTemplate amqpTemplate;
     @Autowired
     private ApplicationProperties applicationProperties;
-    @Autowired
-    private RabbitAdmin rabbitAdmin;
 
-    @Override
-    public void initializeRabbit(){
-        Queue queue = new Queue(applicationProperties.getQueueName() , true, false, false);
-        Binding binding = new Binding(applicationProperties.getQueueName() , Binding.DestinationType.QUEUE, applicationProperties.getExchange(), applicationProperties.getRoutingkey(), null);
-        rabbitAdmin.declareQueue(queue);
-        rabbitAdmin.declareBinding(binding);
-    }
-
-
-    @Override
+       @Override
     public void sendCart(CartDto cart) {
         amqpTemplate.convertAndSend(applicationProperties.getExchange(), applicationProperties.getRoutingkey(), cart);
-        System.out.println("Sent card = " + cart.toString());
+        System.out.println("Sent cart = " + cart.toString());
     }
 }
