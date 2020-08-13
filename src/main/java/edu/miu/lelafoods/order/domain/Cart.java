@@ -48,7 +48,7 @@ public class Cart {
         this.restaurantId = restaurantId;
         this.orderDate = orderDate;
         this.status = status;
-        this.orderList = orderList;
+        this.order = orderList;
     }
 
     public Long getId() {

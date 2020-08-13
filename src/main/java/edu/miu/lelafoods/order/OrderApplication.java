@@ -42,7 +42,7 @@ public class OrderApplication implements CommandLineRunner {
         foodService.save(food);
         Order order = new Order(3,food);
         orderService.addOrder(order);
-        Cart cart = new Cart(1L,1L,new Date(), OrderStatus.NEW.toString(),new ArrayList<>(Arrays.asList(order)));
+        Cart cart = new Cart(2L,1L,new Date(), OrderStatus.NEW.toString(),new ArrayList<>(Arrays.asList(order)));
         cartService.save(cart);
 
     }
