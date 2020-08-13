@@ -50,6 +50,9 @@ public class CartServiceImpl implements CartService {
             rabbitMQSenderService.sendCart(cartDto);
             utility.cartToJson(cartDto);
         }
+        else {
+            System.out.println("Unable to create cart");
+        }
     }
 
     @Override
