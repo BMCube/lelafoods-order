@@ -22,7 +22,6 @@ public class Order {
     @Min(value = 1, message = "Min.size.validation")
     @Column(name = "order_quantity")
     private Integer orderQuantity;
-
     public Integer getOrderQuantity() {
         return orderQuantity;
     }
