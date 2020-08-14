@@ -29,10 +29,14 @@ public class OrderController {
         return orderService.getOrderById(orderId);
     }
 
-    @PostMapping()
+    @PostMapping("")
     public void processAddNewOrderForm(@RequestBody Order orderToBeAdded) {
         orderService.addOrder(orderToBeAdded);
         return;
+    }
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable("id") Long id) {
+        orderService.deleteById(id);
     }
 
 }
