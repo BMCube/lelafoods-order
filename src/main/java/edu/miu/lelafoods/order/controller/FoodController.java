@@ -36,20 +36,7 @@ public class FoodController {
         return foodService.findByFoodName(name);
     }
 
-
-    /*@PostMapping()
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Food> addFood(@RequestBody @Valid Food food, BindingResult result, Principal principal) {
-        if (result.hasErrors()) {
-            return null;
-
-        }
-        return new ResponseEntity<Food>(this.foodService.save(food), HttpStatus.OK);
-
-    }*/
-
     @PostMapping()
-
     @ResponseStatus(HttpStatus.CREATED)
     public void addFood(@RequestBody Food food) {
         foodService.save(food);
