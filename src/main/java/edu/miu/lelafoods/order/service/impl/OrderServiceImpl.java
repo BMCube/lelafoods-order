@@ -1,14 +1,16 @@
-package edu.miu.lelafoods.order.service.Impl;
+package edu.miu.lelafoods.order.service.impl;
 
 import edu.miu.lelafoods.order.dao.OrderDao;
 import edu.miu.lelafoods.order.domain.Order;
 import edu.miu.lelafoods.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
@@ -32,6 +34,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void editOrder(Order editedOrder) {
         orderDao.update(editedOrder);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        orderDao.deleteById(id);
     }
 
     @Override

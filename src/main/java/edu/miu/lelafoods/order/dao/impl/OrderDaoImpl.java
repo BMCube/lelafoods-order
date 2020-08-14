@@ -11,8 +11,8 @@ public class OrderDaoImpl extends GenericDaoImpl<Order> implements OrderDao {
     public OrderDaoImpl(){
         super.setDaoType(Order.class);
     }
-    @Override
+   /* @Override
     public List<Order> showOrdersForToday() {
         return null;
-    }
+    }*/
 }

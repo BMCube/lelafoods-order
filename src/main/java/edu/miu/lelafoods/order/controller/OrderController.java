@@ -11,31 +11,32 @@ import edu.miu.lelafoods.order.domain.Order;
 import edu.miu.lelafoods.order.service.OrderService;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping(OrderController.BASE_URL)
 public class OrderController {
+
+    public static final String BASE_URL = "/orders";
 
     @Autowired
     private OrderService orderService;
 
-    @Autowired
-    RabbitMQSenderService rabbitMQSenderService;
-
-    @RequestMapping("")
+    @GetMapping("")
     public List<Order> list() {
         return orderService.getAllOrders();
     }
 
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
     public Order getOrderById(@PathVariable("id") Long orderId) {
         return orderService.getOrderById(orderId);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @PostMapping("")
     public void processAddNewOrderForm(@RequestBody Order orderToBeAdded) {
         orderService.addOrder(orderToBeAdded);
-        rabbitMQSenderService.sendOrder(orderToBeAdded);
         return;
+    }
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable("id") Long id) {
+        orderService.deleteById(id);
     }
 
 }

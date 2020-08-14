@@ -20,6 +20,17 @@ public class Food {
     @Min(value = 1, message = "{Min.size.validation}")
     private Double price;
 
+    private String description;
+
+    public Food() {
+    }
+
+    public Food(@NotBlank(message = "{String.empty}") String name, @Min(value = 1, message = "{Min.size.validation}") Double price, String description) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+    }
+
     public Long getId() {
         return id;
     }
@@ -42,5 +53,22 @@ public class Food {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

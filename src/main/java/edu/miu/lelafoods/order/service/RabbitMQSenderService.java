@@ -1,7 +1,7 @@
 package edu.miu.lelafoods.order.service;
 
-import edu.miu.lelafoods.order.domain.Order;
+import edu.miu.lelafoods.order.dto.CartDto;
 
 public interface RabbitMQSenderService {
-	public void sendOrder(Order order);
+	public void sendCart(CartDto cart);
 }
