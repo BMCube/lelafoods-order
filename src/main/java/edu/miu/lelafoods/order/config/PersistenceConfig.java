@@ -58,6 +58,7 @@ public class PersistenceConfig {
                 setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
                 setProperty("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
                 setProperty("hibernate.format_sql", environment.getProperty("hibernate.format_sql"));
+                setProperty("hibernate.hbm2ddl.import_files", environment.getProperty("import.sql"));
             }
         };
     }
